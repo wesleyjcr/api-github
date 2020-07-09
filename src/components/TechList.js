@@ -4,11 +4,24 @@ import TechItem from './TechItem';
 class TechList extends Component {
   state = {
     newTech: '',
-    techs: [
-      'nodeJs',
-      'reactJs',
-      'react native'
-    ]
+    techs: []
+  }
+  
+  componentDidMount(){
+    const techs = localStorage.getItem('techs')
+    if (techs){
+      this.setState({techs: JSON.parse(techs)})
+    }
+  }
+
+  componentDidUpdate(_, prevState){
+    if (prevState.techs !== this.state.techs){
+      localStorage.setItem('techs', JSON.stringify(this.state.techs))      
+    }
+  }
+
+  componentWillUnmount(){
+
   }
 
   renderInput = e => {
